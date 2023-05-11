@@ -20,7 +20,7 @@ class AutoReloadCard extends HTMLElement {
 				if(!panel) { return; }
 				const uiRoot = panel.shadowRoot.querySelector('hui-root');
 				if(!uiRoot) { return; }
-				const header = uiRoot.shadowRoot.querySelector('app-header');
+				const header = uiRoot.shadowRoot.querySelector('div');
 				const isEditing = header.classList.contains('edit-mode');
 				if(isEditing) { return; }
 			
