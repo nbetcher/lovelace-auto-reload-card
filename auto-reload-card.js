@@ -17,12 +17,17 @@ class AutoReloadCard extends HTMLElement {
 				const homeAssistant = document.querySelector('home-assistant');
 				const root = homeAssistant.shadowRoot.querySelector('home-assistant-main').shadowRoot;
 				const panel = root.querySelector('ha-panel-lovelace');
-				if(!panel) { return; }
-				const uiRoot = panel.shadowRoot.querySelector('hui-root');
-				if(!uiRoot) { return; }
-				const header = uiRoot.shadowRoot.querySelector('div');
-				const isEditing = header.classList.contains('edit-mode');
-				if(isEditing) { return; }
+				if(panel) {
+					const uiRoot = panel.shadowRoot.querySelector('hui-root');
+					if(uiRoot) {
+						const header = uiRoot.shadowRoot.querySelector('div');
+						if (header) {
+							const isEditing = header.classList.contains('edit-mode');
+							if(isEditing)
+								return;
+						}
+					}
+				}
 			
 				const toolbar = uiRoot.shadowRoot.querySelector('app-toolbar');
 				const buttonMenu = toolbar.querySelector('ha-button-menu');
