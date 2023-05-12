@@ -18,23 +18,17 @@ class AutoReloadCard extends HTMLElement {
 				const homeAssistant = document.querySelector('home-assistant');
 				const root = homeAssistant.shadowRoot.querySelector('home-assistant-main').shadowRoot;
 				const panel = root.querySelector('ha-panel-lovelace');
-				if (!panel) return;
-
-				const uiRoot = panel.shadowRoot.querySelector('hui-root');
-				if (uiRoot) {
-					const header = uiRoot.shadowRoot.querySelector('div');
-					if (header && header.classList.contains('edit-mode'))
-						return;
+				let header = null;
+				if (panel && panel.shadowRoot) {
+					const uiRoot = panel.shadowRoot.querySelector('hui-root');
+					if (uiRoot && uiRoot.shadowRoot) {
+						let header = uiRoot.shadowRoot.querySelector('div');
+						if (header && header.classList && header.classList.contains('edit-mode'))
+							return;
+					}
 				}
 			
-				const toolbar = uiRoot.shadowRoot.querySelector('app-toolbar');
-				const buttonMenu = toolbar.querySelector('ha-button-menu');
-				const refresh = buttonMenu.querySelector('[aria-label=Refresh]');
-			
-				if (refresh)
-					refresh.click();
-				else
-					location.reload();
+				location.reload();
 			}, delay);
 			window.AutoReloadCardIntervalHandle = `${hass.panelUrl}:${intervalHandle}`;
 		}
